@@ -65,13 +65,13 @@
 		exports.viewportTop = scrollTop();
 		exports.viewportBottom = exports.viewportTop + exports.viewportHeight;
 		exports.documentHeight = getDocumentHeight();
-		if (exports.documentHeight !== previousDocumentHeight) {
-			calculateViewportI = watchers.length;
-			while( calculateViewportI-- ) {
-				watchers[calculateViewportI].recalculateLocation();
-			}
-			previousDocumentHeight = exports.documentHeight;
+		// if (exports.documentHeight !== previousDocumentHeight) {
+		calculateViewportI = watchers.length;
+		while( calculateViewportI-- ) {
+			watchers[calculateViewportI].recalculateLocation();
 		}
+		previousDocumentHeight = exports.documentHeight;
+		// }
 	}
 
 	function recalculateWatchLocationsAndTrigger() {
@@ -292,7 +292,7 @@
 
 			this.isInViewport = (this.top <= exports.viewportBottom && this.bottom >= exports.viewportTop);
 			this.isFullyInViewport = (this.top >= exports.viewportTop && this.bottom <= exports.viewportBottom) ||
-								 (this.isAboveViewport && this.isBelowViewport);
+				(this.isAboveViewport && this.isBelowViewport);
 
 		},
 		destroy: function() {
@@ -340,7 +340,7 @@
 	}
 
 	if (window.addEventListener) {
-		window.addEventListener('scroll', scrollMonitorListener);
+		window.addEventListener('scroll', scrollMonitorListener, true);
 		window.addEventListener('resize', debouncedRecalcuateAndTrigger);
 	} else {
 		// Old IE support
